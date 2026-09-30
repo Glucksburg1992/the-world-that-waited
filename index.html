@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#17202a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.webmanifest">
+<title>The World That Waited</title>
+<style>
+:root{--ink:#17202a;--muted:#68727a;--paper:#fffdf8;--bg:#f4f0e8;--line:#e4ddd1;--accent:#b66d43;--gold:#e9b58d;--soft:#f1e6da;--blue:#e8f0f5;--green:#e8f0e7}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:Georgia,serif}
+button,input{font:inherit}.app{max-width:760px;margin:auto;padding-bottom:80px}.top{position:sticky;top:0;z-index:20;background:#17202a;color:white;padding:14px 18px;display:flex;align-items:center;justify-content:space-between}.brand{font:700 11px system-ui;letter-spacing:.14em;text-transform:uppercase}.lang{font:12px system-ui;color:#dbe2e6}
+.screen{padding:28px 18px}.hero{min-height:88vh;display:flex;flex-direction:column;justify-content:center;background:linear-gradient(145deg,#17202a,#3d505b);color:white;padding:34px 24px;border-radius:0 0 28px 28px}.eyebrow{font:700 11px system-ui;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}.hero h1{font-size:48px;line-height:.98;margin:0 0 18px}.hero p{font:17px/1.55 system-ui;color:#dce4e8;max-width:620px}.cta{border:0;border-radius:999px;background:var(--gold);color:var(--ink);font:700 14px system-ui;padding:15px 22px;cursor:pointer;margin-top:22px}.ghost{border:1px solid #667783;border-radius:999px;background:transparent;color:white;font:600 13px system-ui;padding:11px 17px;cursor:pointer;margin-top:10px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:22px;margin:16px 0}.card h2{font-size:29px;line-height:1.1;margin:0 0 8px}.card p{line-height:1.55}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.field label{display:block;font:700 11px system-ui;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:7px}.field input{width:100%;padding:13px;border:1px solid var(--line);border-radius:12px;background:white}.mini{font:12px/1.45 system-ui;color:var(--muted)}
+.voice{background:#17202a;color:white;border:0}.voice h2{color:white}.voice p{color:#cbd5da}.voicebox{border:1px solid #465761;border-radius:16px;padding:16px;margin-top:12px}.voicebox h3{margin:0 0 5px;font-size:20px}.voicebtn{width:100%;border:0;border-radius:12px;background:var(--gold);color:var(--ink);padding:14px;font:700 13px system-ui;cursor:pointer;margin-top:12px}.status{font:12px system-ui;color:#aebbc2;margin-top:8px;min-height:18px}.progress{height:6px;background:#3a4a54;border-radius:99px;overflow:hidden;margin-top:12px}.progress i{display:block;height:100%;width:0;background:var(--gold);transition:.1s}
+.record{display:inline-block;background:var(--green);border-radius:99px;padding:5px 9px;font:700 10px system-ui;letter-spacing:.04em}.poss{display:inline-block;background:#f5e8d8;border-radius:99px;padding:5px 9px;font:700 10px system-ui}.hyp{display:inline-block;background:#e4edf3;border-radius:99px;padding:5px 9px;font:700 10px system-ui}
+.timeline{border-left:3px solid #d7c4b5;padding-left:18px}.month{margin:0 0 20px}.month b{font:700 11px system-ui;color:var(--accent);text-transform:uppercase}.month h3{margin:4px 0;font-size:19px}.month p{margin:0}
+.scene{background:#151d23;color:white;border:0}.scene h2{color:white}.scene p{color:#cbd5da}.play{border:0;border-radius:999px;background:var(--gold);color:var(--ink);font:700 13px system-ui;padding:13px 18px;cursor:pointer}.stop{border:0;border-radius:999px;background:#33444f;color:white;font:700 13px system-ui;padding:13px 18px;cursor:pointer}.controls{display:flex;gap:9px;flex-wrap:wrap;margin:18px 0}.bar{height:6px;background:#33444f;border-radius:99px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:var(--gold)}
+.footer{padding:18px;font:12px/1.5 system-ui;color:var(--muted)}.hide{display:none!important}.center{text-align:center}.quote{font-size:24px;line-height:1.35}
+@media(max-width:600px){.grid{grid-template-columns:1fr}.hero h1{font-size:40px}}
+</style>
+</head>
+<body>
+<div id="app" class="app"></div>
+<script>
+const app=document.getElementById('app');
+const state={name:'',birth:'1966-08-01',motherLocation:'Flensburg, Germany',motherVoice:null,fatherVoice:null,recording:null};
+function render(){
+app.innerHTML=`
+<div class="top"><div class="brand">The World That Waited</div><div class="lang">EN · DE</div></div>
+<section class="hero">
+<div class="eyebrow">Your beginning</div>
+<h1>The world was already here.<br>And they were waiting for you.</h1>
+<p>Discover the world surrounding your beginning — the places, sounds, events, music and memories that shaped the time before you were born.</p>
+<button class="cta" onclick="document.getElementById('begin').scrollIntoView()">Begin your story →</button>
+</section>
+<div class="screen" id="begin">
+<div class="card">
+<div class="eyebrow">Create your beginning</div>
+<h2>Start with three things.</h2>
+<p class="mini">This is enough to build the first version of your world. You can add family memories and voices later.</p>
+<div class="grid">
+<div class="field"><label>Your name</label><input id="nm" placeholder="Optional"></div>
+<div class="field"><label>Birth date</label><input id="bd" type="date" value="${state.birth}"></div>
+<div class="field"><label>Mother's location</label><input id="ml" value="${state.motherLocation}"></div>
+</div>
+<button class="cta" onclick="buildStory()">Build my world →</button>
+</div>
+
+<div class="card voice">
+<div class="eyebrow">The most personal part</div>
+<h2>The Voices That Waited</h2>
+<p>History can tell you what was happening around your family. Only their voices can make it feel like <i>your</i> story.</p>
+<div class="voicebox"><h3>Mom</h3><p>Invite her to record a memory. No app download. No account required.</p><button class="voicebtn" onclick="invite('Mom')">Create Mom's private recording link</button><div id="momStatus" class="status"></div></div>
+<div class="voicebox"><h3>Dad</h3><p>Invite him to record a memory. The original recording remains the source of truth.</p><button class="voicebtn" onclick="invite('Dad')">Create Dad's private recording link</button><div id="dadStatus" class="status"></div></div>
+<div class="mini" style="margin-top:15px;color:#aebbc2">Later: upload old voicemails, cassette transfers or family videos. Optional transcription and translation can be added without replacing the original voice.</div>
+</div>
+
+<div id="story"></div>
+</div>
+<div class="footer">Every experience uses three layers: <b>THE RECORD</b> — what we can establish happened; <b>THE POSSIBILITY</b> — what may have been part of the world; <b>THE HYPOTHETICAL</b> — what we intentionally recreate. We never claim to know exactly what an individual fetus heard.</div>`;
+}
+function buildStory(){
+state.name=document.getElementById('nm').value.trim();
+state.birth=document.getElementById('bd').value;
+state.motherLocation=document.getElementById('ml').value.trim()||'Flensburg, Germany';
+const d=new Date(state.birth+'T12:00:00'); const y=d.getFullYear(), m=d.getMonth()+1, day=d.getDate();
+const label=d.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+document.getElementById('story').innerHTML=`
+<div class="card">
+<div class="eyebrow">Your world</div>
+<h2>${label}</h2>
+<p><b>${state.motherLocation}</b>. This is the starting point for your reconstruction. The system will combine historical records with the personal evidence you provide.</p>
+<div><span class="record">THE RECORD</span> Birth date and location supplied by you.</div>
+</div>
+<div class="card">
+<div class="eyebrow">The Voices That Waited</div>
+<h2>Hear them before you continue.</h2>
+<p class="quote">“The world was already here. Your mother was living her life. Your father was living his. And they were waiting for you.”</p>
+<div class="voicebox" style="border:1px solid #ddd2c5"><h3>What we'll ask them</h3><p>“What do you remember about the time before I was born?”</p><p>“What was happening in your life then?”</p><p>“What did you imagine I would be like?”</p><span class="poss">THE POSSIBILITY — family memory</span></div>
+</div>
+<div class="card">
+<div class="eyebrow">The timeline</div><h2>Your world, month by month.</h2>
+<div class="timeline">
+<div class="month"><b>Before birth</b><h3>The story begins</h3><p>We reconstruct the world around your mother's life without pretending to know details that history cannot recover.</p></div>
+<div class="month"><b>Later pregnancy</b><h3>Sounds begin to matter</h3><p>Research supports fetal responses to sound in later pregnancy. The app will use “may have heard,” never certainty.</p></div>
+<div class="month"><b>Your final days</b><h3>The world gets very specific</h3><p>Local radio, music, weather, news, sports, television, food and family memories converge around your actual location.</p></div>
+</div>
+</div>
+<div class="card scene">
+<div class="eyebrow">Step inside</div><h2>Saturday, July 30, 1966</h2>
+<p><b>Flensburg, West Germany.</b> Two days before you were born. The World Cup final is being played at Wembley. Frank Sinatra's “Strangers in the Night” is at the top of the German chart.</p>
+<p>This sound sketch is intentionally reconstructed — not an archival recording of your mother's home.</p>
+<div class="controls"><button class="play" onclick="playSound()">▶ Press Play</button><button class="stop" onclick="stopSound()">■ Stop</button></div>
+<div class="bar"><i id="audioBar"></i></div><div id="audioStatus" class="status">Ready</div>
+<div style="margin-top:18px"><span class="hyp">THE HYPOTHETICAL</span></div>
+</div>
+<div class="card">
+<div class="eyebrow">The promise</div><h2>One day, this should feel like opening a door.</h2>
+<p>Not a history lesson. Not a generic biography. A personal reconstruction of the world you entered — made more intimate by the voices of the people who were there.</p>
+<button class="cta" onclick="alert('MVP next step: connect real one-time voice links and secure audio storage.')">Continue building →</button>
+</div>`;
+document.getElementById('story').scrollIntoView({behavior:'smooth'});
+}
+function invite(who){
+const el=document.getElementById(who.toLowerCase()+'Status');
+el.innerHTML='Private link created for testing: <b>twaited.app/voice/'+who.toLowerCase()+'/demo</b><br>Production version will send this by SMS or email and require no app download.';
+}
+let ctx,master,nodes=[],timer,start;
+function stopSound(){if(timer)clearInterval(timer);nodes.forEach(n=>{try{n.stop()}catch(e){}});nodes=[];if(window.speechSynthesis)speechSynthesis.cancel();const b=document.getElementById('audioBar');if(b)b.style.width='0%';const s=document.getElementById('audioStatus');if(s)s.textContent='Ready';}
+function playSound(){
+stopSound();ctx=new (window.AudioContext||window.webkitAudioContext)();master=ctx.createGain();master.gain.value=.45;master.connect(ctx.destination);const t=ctx.currentTime;start=Date.now();
+function osc(f,st,d,g,type='sine'){let o=ctx.createOscillator(),a=ctx.createGain();o.type=type;o.frequency.value=f;a.gain.setValueAtTime(0,st);a.gain.linearRampToValueAtTime(g,st+.08);a.gain.setValueAtTime(g,st+d-.1);a.gain.linearRampToValueAtTime(0,st+d);o.connect(a).connect(master);o.start(st);o.stop(st+d+.1);nodes.push(o)}
+function noise(st,d,g){let n=ctx.createBufferSource(),b=ctx.createBuffer(1,ctx.sampleRate*(d+.2),ctx.sampleRate),x=b.getChannelData(0);for(let i=0;i<x.length;i++)x[i]=(Math.random()*2-1)*.25;n.buffer=b;let f=ctx.createBiquadFilter(),a=ctx.createGain();f.type='lowpass';f.frequency.value=1800;a.gain.value=g;n.connect(f).connect(a).connect(master);n.start(st);n.stop(st+d);nodes.push(n)}
+noise(t,12,.16);osc(60,t,15,.05);noise(t+14,10,.12);osc(90,t+15,8,.04,'triangle');
+noise(t+25,5,.18);osc(440,t+30,.4,.03);osc(660,t+30.5,.4,.02);osc(196,t+36,3,.035,'triangle');osc(247,t+39,3,.025,'triangle');osc(294,t+42,3,.03,'triangle');osc(247,t+45,3,.025,'triangle');osc(55,t+52,12,.08);
+if(window.speechSynthesis){setTimeout(()=>{let u=new SpeechSynthesisUtterance('Guten Morgen aus dem Norden. Es ist Samstag, der dreißigste Juli neunzehnhundertsechsundsechzig.');u.lang='de-DE';u.rate=.78;u.pitch=.75;u.volume=.55;speechSynthesis.speak(u)},30000);setTimeout(()=>{let u=new SpeechSynthesisUtterance('Du hörst nicht wie ein Erwachsener. Du hörst aus einer Welt, die durch deine Mutter zu dir gelangt.');u.lang='de-DE';u.rate=.68;u.pitch=.7;u.volume=.55;speechSynthesis.speak(u)},61000)}
+const bar=document.getElementById('audioBar'),status=document.getElementById('audioStatus');status.textContent='Playing — reconstructed sound sketch';timer=setInterval(()=>{let e=(Date.now()-start)/1000;bar.style.width=Math.min(100,e/72*100)+'%';if(e>=72){clearInterval(timer);status.textContent='Finished — reconstructed, not archival'}},100);
+}
+render();
+</script>
+</body></html>
